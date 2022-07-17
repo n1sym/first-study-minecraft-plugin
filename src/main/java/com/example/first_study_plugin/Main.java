@@ -7,6 +7,6 @@ public class Main extends JavaPlugin {
   public void onEnable() {
     getLogger().info("プラグインを有効にしました。");
     this.getCommand("greet").setExecutor(new CommandGreet());
-    this.getServer().getPluginManager().registerEvents(new PlayerListener(), this);
+    this.getServer().getPluginManager().registerEvents(new SeichiAction(), this);
   }
 }
