@@ -8,5 +8,6 @@ public class Main extends JavaPlugin {
     getLogger().info("プラグインを有効にしました。");
     this.getCommand("greet").setExecutor(new CommandGreet());
     this.getServer().getPluginManager().registerEvents(new SeichiAction(), this);
+    this.getServer().getPluginManager().registerEvents(new Login(), this);
   }
 }
