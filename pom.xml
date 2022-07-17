@@ -8,7 +8,7 @@
   <!-- プロジェクトのID。書き出されるファイル名にも使われる -->
   <artifactId>first-study-plugin</artifactId>
   <!-- プロジェクトのバージョン。書き出されるファイル名にも使われる -->
-  <version>0.0.1</version>
+  <version>0.0.2</version>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
