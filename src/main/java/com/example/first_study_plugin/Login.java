@@ -5,15 +5,22 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.entity.Player;
 import org.bukkit.Bukkit;
+import java.util.UUID;
 
 public class Login implements Listener {
   @EventHandler
   public void onPlayerLogin(PlayerLoginEvent event) {
     Player player = event.getPlayer();
-    String player_name = player.getName();
-    Bukkit.getLogger().info(player_name + "がログインしました");
+    String name = player.getName();
+    UUID uuid = player.getUniqueId();
+    Bukkit.getLogger().info(name + "がログインしました");
     try {
-      sqlite.exist(player_name);
+      Integer id = sqlite.getId(uuid, name);
+      Integer count = sqlite.getSeichiCount(id);
+      Bukkit.getLogger().info("id: " + id.toString() + " 整地カウント: " + count.toString());
+      SeichiLevel.setSeichiCount(player, count);
+      Integer meta_count = SeichiLevel.getSeichiCount(player);
+      Bukkit.getLogger().info("id: " + id.toString() + " 整地カウント(meta): " + meta_count.toString());
     } catch (Exception e) {
       e.printStackTrace();
     }

@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.PreparedStatement;
+import java.util.UUID;
 
 import org.bukkit.Bukkit;
 
@@ -26,7 +27,7 @@ public class sqlite {
     boolean is_exist = false;
 
     Connection connection = connection();
-    PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM accounts WHERE name = ?");
+    PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM account WHERE name = ?");
     pstmt.setString(1, name);
     ResultSet rs = pstmt.executeQuery();
     if (rs.next()) {
@@ -36,6 +37,95 @@ public class sqlite {
       Bukkit.getLogger().info("アカウントが存在しません");
     }
     return is_exist;
+  }
+
+  public static boolean createAccount(UUID uuid, String name) {
+    try (
+        Connection connection = connection();
+        PreparedStatement statement = connection.prepareStatement("INSERT INTO account (uuid, name) VALUES(?,?)");) {
+      statement.setString(1, uuid.toString());
+      statement.setString(2, name);
+      if (statement.executeUpdate() != 0) {
+        Bukkit.getLogger().info("アカウントを作成しました");
+
+        return true;
+      }
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+    return false;
+  }
+
+  public static Integer getId(UUID uuid, String name) {
+    try (Connection connection = connection()){
+      try ( PreparedStatement statement = connection.prepareStatement(
+        "SELECT * FROM account WHERE uuid = ?"
+      )) {
+        statement.setString(1, uuid.toString());
+        // get id
+        try (ResultSet resultSet = statement.executeQuery()){
+          if (resultSet.next()) {
+            return resultSet.getInt("id");
+          }
+        }
+        // insert id
+        try (PreparedStatement insert = connection.prepareStatement(
+            "INSERT INTO account (uuid, name) VALUES(?,?)"
+        )) {
+          insert.setString(1, uuid.toString());
+          insert.setString(2, name);
+          insert.executeUpdate();
+        }
+        // re get id
+        try (ResultSet resultSet = statement.executeQuery()) {
+          if (resultSet.next()) {
+            return resultSet.getInt("id");
+          }
+        }
+      } catch (SQLException e) {
+        connection.rollback();
+        throw e;
+      } 
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+    throw new RuntimeException("The ID could not be issued.");
+  }
+
+  public static Integer getSeichiCount(Integer id) {
+    try (Connection connection = connection()){
+      try (PreparedStatement statement = connection.prepareStatement(
+          "select * from seichi where id = ?"
+      )) {
+        // get count
+        statement.setInt(1, id);
+        try (ResultSet resultSet = statement.executeQuery()) {
+          if (resultSet.next()) {
+              return resultSet.getInt("count");
+          }
+        }
+        // insert data
+        try (PreparedStatement insert = connection.prepareStatement(
+            "INSERT INTO seichi (id, count) VALUES (?,?)"
+        )) {
+          insert.setInt(1, id);
+          insert.setInt(2, 0);
+          insert.executeUpdate();
+        }
+        // re get id
+        try (ResultSet resultSet = statement.executeQuery()) {
+          if (resultSet.next()) {
+            return resultSet.getInt("count");
+          }
+        }
+      } catch (SQLException e) {
+        connection.rollback();
+        throw e;
+      }
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+    throw new RuntimeException("Unexpected Error");
   }
 
   public static void test() throws SQLException {
