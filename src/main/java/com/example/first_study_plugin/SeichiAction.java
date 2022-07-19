@@ -34,32 +34,30 @@ public class SeichiAction implements Listener {
     return breaked_count;
   }
 
+  public int[] range_unit(String direction) {
+    int range[] = new int[4];
+    if (direction == "W") {
+      range = new int[]{ -1, 1, 0, 2 };
+    } else if (direction == "E") {
+      range = new int[]{ -1, 1, -2, 0 };
+    } else if (direction == "S") {
+      range = new int[]{ 0, 2, -1, 1 };
+    } else if (direction == "N") {
+      range = new int[]{ -2, 0, -1, 1 };
+    }
+    return range;
+  }
+
   @EventHandler
   public void onBlockBreak(BlockBreakEvent event) {
     Player player = event.getPlayer();
     String direction = Direction.getCardinalDirection(player);
-
-    int range[] = null; 
+    int range[] = range_unit(direction); 
     Block block = event.getBlock();
-    if (direction == "W") {
-      int t_range[] = { -1, 1, 0, 2 };
-      range = t_range;
-    } else if (direction == "E") {
-      int t_range[] = { -1, 1, -2, 0 };
-      range = t_range;
-    } else if (direction == "S") {
-      int t_range[] = { 0, 2, -1, 1 };
-      range = t_range;
-    } else if (direction == "N") {
-      int t_range[] = { -2, 0, -1, 1 };
-      range = t_range;
-    }
 
     int breaked_count = rangeBreak(block, range);
 
     Integer meta_count = SeichiLevel.getSeichiCount(player);
     SeichiLevel.setSeichiCount(player, meta_count + breaked_count);
-    Bukkit.getLogger().info(" 整地カウント(meta): " + meta_count.toString());
-   
   }
 }
