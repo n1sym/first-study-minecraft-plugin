@@ -12,6 +12,7 @@ public class Main extends JavaPlugin {
     this.getCommand("greet").setExecutor(new CommandGreet());
     this.getServer().getPluginManager().registerEvents(new SeichiAction(), this);
     this.getServer().getPluginManager().registerEvents(new Login(), this);
+    this.getServer().getPluginManager().registerEvents(new Logout(), this);
   }
 
   public static Main getInstance() {

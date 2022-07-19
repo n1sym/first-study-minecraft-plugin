@@ -19,8 +19,6 @@ public class Login implements Listener {
       Integer count = sqlite.getSeichiCount(id);
       Bukkit.getLogger().info("id: " + id.toString() + " 整地カウント: " + count.toString());
       SeichiLevel.setSeichiCount(player, count);
-      Integer meta_count = SeichiLevel.getSeichiCount(player);
-      Bukkit.getLogger().info("id: " + id.toString() + " 整地カウント(meta): " + meta_count.toString());
     } catch (Exception e) {
       e.printStackTrace();
     }

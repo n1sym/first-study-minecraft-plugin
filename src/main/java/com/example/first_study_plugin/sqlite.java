@@ -128,6 +128,19 @@ public class sqlite {
     throw new RuntimeException("Unexpected Error");
   }
 
+  public static boolean setSeichiCount(int id, int count){
+    try (Connection connection = connection();
+         PreparedStatement statement = connection.prepareStatement(
+          "UPDATE seichi SET count=? WHERE id=?"
+      )) {
+        statement.setInt(1, count);
+        statement.setInt(2, id);
+        return (statement.executeUpdate() != 0);
+    } catch (SQLException e) {
+        throw new RuntimeException(e);
+    }
+  }
+
   public static void test() throws SQLException {
     String dbname = "development.db"; // 利用するデータベースファイル
     Connection conn = null;
