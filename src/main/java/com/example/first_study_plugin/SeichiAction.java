@@ -8,8 +8,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 
-import org.bukkit.Bukkit;
-
 public class SeichiAction implements Listener {
 
   public int rangeBreak(Block block, int[] range) {

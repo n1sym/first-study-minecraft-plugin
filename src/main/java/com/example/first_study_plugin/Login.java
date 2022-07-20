@@ -3,6 +3,7 @@ package com.example.first_study_plugin;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerLoginEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.entity.Player;
 import org.bukkit.Bukkit;
 import java.util.UUID;
@@ -22,5 +23,11 @@ public class Login implements Listener {
     } catch (Exception e) {
       e.printStackTrace();
     }
+  }
+
+  @EventHandler
+  public void onPlayerJoin(PlayerJoinEvent event) {
+    Player player = event.getPlayer();
+    SeichiBar.createBossBar(player);
   }
 }
