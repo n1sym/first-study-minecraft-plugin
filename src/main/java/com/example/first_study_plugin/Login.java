@@ -28,6 +28,8 @@ public class Login implements Listener {
   @EventHandler
   public void onPlayerJoin(PlayerJoinEvent event) {
     Player player = event.getPlayer();
-    SeichiBar.createBossBar(player);
+    Integer count = SeichiLevel.getSeichiCount(player);
+    SeichiBar.createSeichiBar(player);
+    SeichiBar.setSeichiBar(count, player);
   }
 }
