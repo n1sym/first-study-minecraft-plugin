@@ -54,9 +54,6 @@ public class SeichiAction implements Listener {
     Block block = event.getBlock();
 
     int breaked_count = rangeBreak(block, range);
-
-    Integer meta_count = SeichiLevel.getSeichiCount(player);
-    SeichiLevel.setSeichiCount(player, meta_count + breaked_count);
-    SeichiBar.setSeichiBar(meta_count + breaked_count, player);
+    SeichiCountManager.addSeichiCount(player, breaked_count);
   }
 }
