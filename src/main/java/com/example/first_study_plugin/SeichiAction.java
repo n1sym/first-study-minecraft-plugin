@@ -22,7 +22,7 @@ public class SeichiAction implements Listener {
         for (int k = k_start; k <= k_end; k++) {
           Location location = block.getLocation();
           Block neighborhood_block = location.add(i, j, k).getBlock();
-          if (neighborhood_block.getType() != Material.AIR) {
+          if (neighborhood_block.getType() != Material.AIR && !isOutsideTheWorld(location)) {
             breaked_count += 1;
             neighborhood_block.setType(Material.AIR);
           }
@@ -32,6 +32,13 @@ public class SeichiAction implements Listener {
     return breaked_count;
   }
 
+  public boolean isOutsideTheWorld(Location location) {
+    boolean bool = false;
+    if (Math.abs(location.getX()) >= 1000 || Math.abs(location.getZ()) >= 1000) {
+      bool = true;
+    }
+    return bool;
+  }
   public int[] range_unit(String direction) {
     int range[] = new int[4];
     if (direction == "W") {
