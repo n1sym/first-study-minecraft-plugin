@@ -49,6 +49,14 @@ public class SeichiAction implements Listener {
   @EventHandler
   public void onBlockBreak(BlockBreakEvent event) {
     Player player = event.getPlayer();
+
+    // 持っているのはツール類か?
+    ItemStack i = player.getInventory().getItemInMainHand();
+    if ((i.getType() != Material.STONE_PICKAXE) && (i.getType() != Material.STONE_SHOVEL)) {
+      SeichiCountManager.addSeichiCount(player, 1);
+      return;
+    }
+
     String direction = Direction.getCardinalDirection(player);
     int range[] = range_unit(direction); 
     Block block = event.getBlock();
