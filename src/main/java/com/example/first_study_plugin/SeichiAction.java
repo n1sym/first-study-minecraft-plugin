@@ -20,6 +20,12 @@ public class SeichiAction implements Listener {
     int j_end = range[3];
     int k_start = range[4];
     int k_end = range[5];
+
+    // 起点ブロックが自分の足元と同じ高さだった場合、y範囲の起点を0とする
+    if (player.getLocation().getY() == block.getLocation().getY()) {
+      j_start = 0;
+    }
+
     if (isDenyGravityValue(block, range)) {
       player.sendMessage(Component.text("範囲破壊は露天掘りのみ許可しています"));
       return 1;
@@ -108,7 +114,7 @@ public class SeichiAction implements Listener {
     }
 
     String direction = Direction.getCardinalDirection(player);
-    int range[] = range_unit(direction); 
+    int range[] = range_unit(direction);
     Block block = event.getBlock();
 
     int breaked_count = rangeBreak(block, range, player);
