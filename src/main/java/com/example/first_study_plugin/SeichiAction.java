@@ -24,7 +24,7 @@ public class SeichiAction implements Listener {
           Block neighborhood_block = location.add(i, j, k).getBlock();
           if (neighborhood_block.getType() != Material.AIR) {
             breaked_count += 1;
-            neighborhood_block.breakNaturally();
+            neighborhood_block.setType(Material.AIR);
           }
         }
       }
@@ -48,6 +48,8 @@ public class SeichiAction implements Listener {
 
   @EventHandler
   public void onBlockBreak(BlockBreakEvent event) {
+    event.setDropItems(false);
+
     Player player = event.getPlayer();
 
     // 持っているのはツール類か?
