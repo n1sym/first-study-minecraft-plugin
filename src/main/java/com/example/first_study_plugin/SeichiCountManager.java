@@ -3,12 +3,13 @@ package com.example.first_study_plugin;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.*;
 import org.bukkit.plugin.*;
+import net.kyori.adventure.text.Component;
 
 public class SeichiCountManager {
   public static void setSeichiCount(Player player, Integer count) {
     Plugin plugin = Main.getInstance();
     int res[] = getSeichiLevel(count);
-    int seichi_level = res[0];
+    Integer seichi_level = res[0];
     int rounded_prev_count = res[1];
     int rounded_next_count = res[2];
 
@@ -16,6 +17,11 @@ public class SeichiCountManager {
     player.setMetadata("seichi_level", new FixedMetadataValue(plugin, seichi_level));
     player.setMetadata("prev_count", new FixedMetadataValue(plugin, rounded_prev_count));
     player.setMetadata("next_count", new FixedMetadataValue(plugin, rounded_next_count));
+
+    String str_level = seichi_level.toString();
+    String display_name = player.getName();
+    player.displayName(Component.text("Lv" + str_level + " " + display_name));
+    player.playerListName(Component.text("Lv" + str_level + " " + display_name));
   }
 
   public static void addSeichiCount(Player player, Integer add_count) {
