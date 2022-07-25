@@ -25,6 +25,9 @@ public class CommandGreet implements CommandExecutor {
 	  if (sender instanceof Player) {
 	  	// プレイヤーが実行
 	  	player = (Player) sender;
+      if (args[0].equalsIgnoreCase("encha")) {
+        Tools.addEnchantTool(player);
+      }
       if (args[0].equalsIgnoreCase("init")) {
         Tools.getInitTools(player);
       }
