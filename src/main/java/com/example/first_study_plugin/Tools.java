@@ -6,6 +6,7 @@ import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import net.kyori.adventure.text.Component;
+import org.bukkit.inventory.meta.Damageable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,5 +32,14 @@ public class Tools {
     pickaxe.setItemMeta(meta);
     pickaxe.addEnchantment(Enchantment.DIG_SPEED, 1);
     player.getInventory().addItem(pickaxe);
+  }
+
+  public static void addDamageTools(ItemStack tool, int count){
+    ItemMeta meta = tool.getItemMeta();
+    if (!meta.isUnbreakable()) {
+      int now =((Damageable) meta).getDamage();
+      ((Damageable) meta).setDamage(count + now);
+    }
+    tool.setItemMeta(meta);
   }
 }

@@ -37,6 +37,9 @@ public class SeichiAction implements Listener {
         for (int k = k_start; k <= k_end; k++) {
           Location location = block.getLocation();
           Block neighborhood_block = location.add(i, j, k).getBlock();
+          if (i == 0 && j == 0 && k == 0) {
+            continue;
+          }
           if (neighborhood_block.getType() != Material.AIR && !isOutsideTheWorld(location)) {
             breaked_count += 1;
             neighborhood_block.setType(Material.AIR);
@@ -119,5 +122,8 @@ public class SeichiAction implements Listener {
 
     int breaked_count = rangeBreak(block, range, player);
     SeichiCountManager.addSeichiCount(player, breaked_count);
+
+    // 耐久度を減らす
+    Tools.addDamageTools(i, breaked_count);
   }
 }
