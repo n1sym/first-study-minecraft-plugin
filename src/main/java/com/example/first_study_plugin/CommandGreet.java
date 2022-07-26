@@ -31,6 +31,9 @@ public class CommandGreet implements CommandExecutor {
       if (args[0].equalsIgnoreCase("init")) {
         Tools.getInitTools(player);
       }
+      if (args[0].equalsIgnoreCase("gacha")){
+        Skull.getSkull(player);
+      }
       
 	  }
     // コマンド成功判定
