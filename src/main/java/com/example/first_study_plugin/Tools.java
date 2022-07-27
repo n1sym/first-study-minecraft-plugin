@@ -16,7 +16,8 @@ public class Tools {
     ItemStack pickaxe = new ItemStack(Material.STONE_PICKAXE);
     ItemStack shovel = new ItemStack(Material.STONE_SHOVEL);
     ItemStack axe = new ItemStack(Material.STONE_AXE);
-    player.getInventory().addItem(pickaxe, shovel, axe);
+    ItemStack hoe = new ItemStack(Material.DIAMOND_HOE);
+    player.getInventory().addItem(pickaxe, shovel, axe, hoe);
   }
 
   public static void addEnchantTool(Player player) {
@@ -31,6 +32,7 @@ public class Tools {
     meta.lore(lores);
     pickaxe.setItemMeta(meta);
     pickaxe.addEnchantment(Enchantment.DIG_SPEED, 1);
+    pickaxe.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 5);
     player.getInventory().addItem(pickaxe);
   }
 
