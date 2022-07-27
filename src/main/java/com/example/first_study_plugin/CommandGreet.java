@@ -20,6 +20,10 @@ public class CommandGreet implements CommandExecutor {
   public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
     // コマンド実行者に「Hi!」というメッセージを送る
     sender.sendMessage("Hi!");
+
+    if (args.length == 0) {
+      return false;
+    }
     
     Player player = null;
 	  if (sender instanceof Player) {
@@ -33,6 +37,28 @@ public class CommandGreet implements CommandExecutor {
       }
       if (args[0].equalsIgnoreCase("gacha")){
         Skull.getSkull(player);
+      }
+      if (args[0].equalsIgnoreCase("skill")){
+        if (args.length == 1) {
+          Integer skill_level = SeichiSkill.getSkillLevel(player);
+          sender.sendMessage("現在設定されているスキルレベルは " + skill_level.toString() + " です。" );
+        } else {
+          int seichi_level = player.getMetadata("seichi_level").get(0).asInt();
+          if (args[1].equalsIgnoreCase("0")) {
+            SeichiSkill.setSkillLevel(player, 0);
+            Integer skill_level = SeichiSkill.getSkillLevel(player);
+            sender.sendMessage("現在設定されているスキルレベルは " + skill_level.toString() + " です。" );
+          }
+          if (args[1].equalsIgnoreCase("1")) {
+            if (seichi_level >= 5) {
+              SeichiSkill.setSkillLevel(player, 1);
+            } else {
+              sender.sendMessage("整地レベルが足りません。スキルレベル1は整地レベル5が開放条件です。");
+            }
+            Integer skill_level = SeichiSkill.getSkillLevel(player);
+            sender.sendMessage("現在設定されているスキルレベルは " + skill_level.toString() + " です。" );
+          }
+        }
       }
       
 	  }

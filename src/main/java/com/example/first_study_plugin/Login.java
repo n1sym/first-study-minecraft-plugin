@@ -19,6 +19,8 @@ public class Login implements Listener {
       Integer id = sqlite.getId(uuid, name);
       Integer count = sqlite.getSeichiCount(id);
       SeichiLevel.setSeichiCount(player, count);
+      Integer level = sqlite.getSeichiSkillLevel(id);
+      SeichiSkill.setSkillLevel(player, level);
     } catch (Exception e) {
       e.printStackTrace();
     }

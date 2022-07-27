@@ -16,6 +16,8 @@ public class Logout implements Listener{
       Integer id = sqlite.getId(uuid, name);
       Integer count = SeichiLevel.getSeichiCount(player);
       sqlite.setSeichiCount(id, count);
+      int skill_level = SeichiSkill.getSkillLevel(player);
+      sqlite.setSeichiSkillLevel(id, skill_level);
     } catch (Exception e) {
       e.printStackTrace();
     }

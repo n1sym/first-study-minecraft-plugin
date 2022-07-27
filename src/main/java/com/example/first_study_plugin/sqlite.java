@@ -141,6 +141,55 @@ public class sqlite {
     }
   }
 
+  public static Integer getSeichiSkillLevel(Integer id) {
+    try (Connection connection = connection()){
+      try (PreparedStatement statement = connection.prepareStatement(
+          "select * from skill_level where id = ?"
+      )) {
+        // get level
+        statement.setInt(1, id);
+        try (ResultSet resultSet = statement.executeQuery()) {
+          if (resultSet.next()) {
+              return resultSet.getInt("level");
+          }
+        }
+        // insert data
+        try (PreparedStatement insert = connection.prepareStatement(
+            "INSERT INTO skill_level (id, level) VALUES (?,?)"
+        )) {
+          insert.setInt(1, id);
+          insert.setInt(2, 0);
+          insert.executeUpdate();
+        }
+        // re get id
+        try (ResultSet resultSet = statement.executeQuery()) {
+          if (resultSet.next()) {
+            return resultSet.getInt("level");
+          }
+        }
+      } catch (SQLException e) {
+        connection.rollback();
+        throw e;
+      }
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+    throw new RuntimeException("Unexpected Error");
+  }
+
+  public static boolean setSeichiSkillLevel(int id, int level){
+    try (Connection connection = connection();
+         PreparedStatement statement = connection.prepareStatement(
+          "UPDATE skill_level SET level=? WHERE id=?"
+      )) {
+        statement.setInt(1, level);
+        statement.setInt(2, id);
+        return (statement.executeUpdate() != 0);
+    } catch (SQLException e) {
+        throw new RuntimeException(e);
+    }
+  }
+
   public static void test() throws SQLException {
     String dbname = "development.db"; // 利用するデータベースファイル
     Connection conn = null;
