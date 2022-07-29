@@ -112,9 +112,17 @@ public class SeichiAction implements Listener {
     event.setDropItems(false);
 
     Player player = event.getPlayer();
-
-    // 持っているのはツール類か?
     ItemStack i = player.getInventory().getItemInMainHand();
+    Block block = event.getBlock();
+
+    // 木こり処理
+    if (i.getType() == Material.STONE_AXE && UtilItemGroups.isWoodMaterial(block)) {
+      int breaked_count = WoodCutter.cut(block);
+      SeichiCountManager.addSeichiCount(player, breaked_count);
+      return;
+    }
+
+    // 通常破壊処理
     if ((i.getType() != Material.STONE_PICKAXE) && (i.getType() != Material.STONE_SHOVEL)) {
       SeichiCountManager.addSeichiCount(player, 1);
       return;
@@ -127,8 +135,7 @@ public class SeichiAction implements Listener {
     if (Direction.isLookingDownward(player)){
       range = downwardRangeUnit();
     }
-
-    Block block = event.getBlock();
+    
     int breaked_count = rangeBreak(block, range, player);
     SeichiCountManager.addSeichiCount(player, breaked_count);
 

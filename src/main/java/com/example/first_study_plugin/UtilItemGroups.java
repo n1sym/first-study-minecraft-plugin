@@ -21,4 +21,18 @@ public class UtilItemGroups {
     }
     return is_lava;
   }
+
+  public static boolean isWoodMaterial(Block block) {
+    boolean is_wood = false;
+    if (block.getType() == Material.OAK_LOG ||
+        block.getType() == Material.SPRUCE_LOG ||
+        block.getType() == Material.BIRCH_LOG ||
+        block.getType() == Material.ACACIA_LOG ||
+        block.getType() == Material.DARK_OAK_LOG ||
+        block.getType() == Material.MANGROVE_LOG ||
+        block.getType() == Material.JUNGLE_LOG) {
+      is_wood = true;
+    }
+    return is_wood;
+  }
 }
