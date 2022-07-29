@@ -20,7 +20,7 @@ public class Frozen implements Listener {
     }
     
     Location player_location = player.getLocation();
-    Block block = player_location.add(0, -1, 0).getBlock();
+    Block block = player_location.getBlock();
     for (int i = -4; i <= 4; i++) {
       for (int j = -4; j <= 0; j++) {
         for (int k = -4; k <= 4; k++) {
@@ -28,6 +28,9 @@ public class Frozen implements Listener {
           Block neighborhood_block = location.add(i, j, k).getBlock();
           if (UtilItemGroups.isWaterMaterial(neighborhood_block)) {
             neighborhood_block.setType(Material.ICE);
+          }
+          if (UtilItemGroups.isLavaMaterial(neighborhood_block)) {
+            neighborhood_block.setType(Material.MAGMA_BLOCK);
           }
         }
       }
