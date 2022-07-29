@@ -11,7 +11,8 @@ public class Main extends JavaPlugin {
     getLogger().info("プラグインを有効にしました。");
     this.getCommand("greet").setExecutor(new CommandGreet());
     this.getServer().getPluginManager().registerEvents(new SeichiAction(), this);
-    this.getServer().getPluginManager().registerEvents(new Frozen(), this);
+    this.getServer().getPluginManager().registerEvents(new ClickListener(), this);
+    this.getServer().getPluginManager().registerEvents(new InventoryClick(), this);
     this.getServer().getPluginManager().registerEvents(new Login(), this);
     this.getServer().getPluginManager().registerEvents(new Logout(), this);
   }
