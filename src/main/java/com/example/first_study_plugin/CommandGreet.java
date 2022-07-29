@@ -38,6 +38,9 @@ public class CommandGreet implements CommandExecutor {
       if (args[0].equalsIgnoreCase("gacha")){
         Skull.getSkull(player);
       }
+      if (args[0].equalsIgnoreCase("scaf")){
+        Tools.getScaffolding(player);
+      }
       if (args[0].equalsIgnoreCase("skill")){
         if (args.length == 1) {
           Integer skill_level = SeichiSkill.getSkillLevel(player);

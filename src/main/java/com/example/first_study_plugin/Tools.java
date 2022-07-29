@@ -20,6 +20,11 @@ public class Tools {
     player.getInventory().addItem(pickaxe, shovel, axe, hoe);
   }
 
+  public static void getScaffolding(Player player) {
+    ItemStack scaf = new ItemStack(Material.SCAFFOLDING, 64);
+    player.getInventory().addItem(scaf);
+  }
+
   public static void addEnchantTool(Player player) {
     ItemStack pickaxe = new ItemStack(Material.STONE_PICKAXE);
     ItemMeta meta = pickaxe.getItemMeta();
@@ -44,4 +49,6 @@ public class Tools {
     }
     tool.setItemMeta(meta);
   }
+
+
 }
