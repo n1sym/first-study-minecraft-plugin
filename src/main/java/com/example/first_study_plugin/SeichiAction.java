@@ -90,7 +90,7 @@ public class SeichiAction implements Listener {
   }
 
   public int[] range_unit(String direction) {
-    int range[] = new int[4];
+    int range[] = new int[6];
     if (direction == "W") {
       range = new int[] { -1, 1, -1, 1, 0, 2 };
     } else if (direction == "E") {
@@ -101,6 +101,10 @@ public class SeichiAction implements Listener {
       range = new int[] { -2, 0, -1, 1, -1, 1 };
     }
     return range;
+  }
+
+  public int[] downwardRangeUnit(){
+    return new int[] { -1, 1, -2, 0, -1, 1 };
   }
 
   @EventHandler
@@ -117,9 +121,14 @@ public class SeichiAction implements Listener {
     }
 
     String direction = Direction.getCardinalDirection(player);
-    int range[] = range_unit(direction);
-    Block block = event.getBlock();
+    int[] range = range_unit(direction);
 
+    // プレイヤーが真下(±10F)を向いていた時
+    if (Direction.isLookingDownward(player)){
+      range = downwardRangeUnit();
+    }
+
+    Block block = event.getBlock();
     int breaked_count = rangeBreak(block, range, player);
     SeichiCountManager.addSeichiCount(player, breaked_count);
 

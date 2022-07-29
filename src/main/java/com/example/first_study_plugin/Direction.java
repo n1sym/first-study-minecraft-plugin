@@ -3,6 +3,14 @@ package com.example.first_study_plugin;
 import org.bukkit.entity.Player;
 
 public class Direction {
+  public static boolean isLookingDownward(Player player){
+    double rotation = (player.getLocation().getPitch()) % 360.0F;
+    boolean is_downward = false;
+    if (rotation > 80) {
+      is_downward = true;
+    }
+    return is_downward;
+  }
   public static String getCardinalDirection(Player player) {
     double rotation = (player.getLocation().getYaw() - 90.0F) % 360.0F;
     if (rotation < 0.0D) {
