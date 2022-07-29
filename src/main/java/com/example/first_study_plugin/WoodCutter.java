@@ -6,11 +6,9 @@ import java.util.Deque;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.Bukkit;
 
 public class WoodCutter {
   public static int cut(Block block) {
-    Bukkit.getLogger().info("call woodcutter");
     int cnt = 0;
     Deque<Block> queue = new ArrayDeque<>();
     queue.add(block);
